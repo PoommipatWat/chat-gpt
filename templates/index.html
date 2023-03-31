@@ -45,15 +45,15 @@
     </div>
 
     <div class="xRoboCon" id="xRoboCon">
-        <p>Joy position X : <span id="xRobo">0.00</span></p>
+        <p>Robo position X : <span id="xRobo">0.00</span></p>
     </div>
 
     <div class="yRoboCon" id="yRoboCon">
-        <p>Joy position Y : <span id="yRobo">0.00</span></p>
+        <p>Robo position Y : <span id="yRobo">0.00</span></p>
     </div>
 
     <div class="dRoboCon" id="dRoboCon">
-        <p>Joy position D : <span id="dRobo">0.00</span></p>
+        <p>Robo position D : <span id="dRobo">0.00</span></p>
     </div>
 
     <div class="statusStageCon" id="statusStageCon">
@@ -65,7 +65,15 @@
     </div>
 
     <div class="speedShootCon" id="speedShootCon">
-        <p>SpeedShoot : <span id="speedShoot"></span></p>
+        <input type="number" class="speedShoot" id="speedShoot" name="speedShoot" value=100>
+    </div>
+    <script src="/static/speedShoot.js"></script>
+
+    <div class="video" id="video">for camera</div>
+    <script src="/static/video.js"></script>
+
+    <div class="teamCon" id="teamCon">
+        <h1 id="team" class="team">REAI CMU MAHOUT 1</h1>
     </div>
 
 </body>

@@ -1,7 +1,24 @@
 from flask import Flask, render_template, request
 import math
+import rclpy
+from rclpy.node import Node
+from std_msgs.msg import String
 
 app = Flask(__name__)
+
+class FlaskROS2Subscriber(Node):
+    def __init__(self):
+        super().__init__('flask_ros2_subscriber')
+        self.subscription = self.create_subscription(
+            String,
+            'flask_topic',
+            self.listener_callback,
+            10)
+
+    def listener_callback(self, msg):
+        data = msg.data
+        # Process data received from the ROS2 topic and forward it to the appropriate route
+        app.test_client().post('/joystick', json=data)
 
 @app.route('/')
 def index():
@@ -10,30 +27,14 @@ def index():
 @app.route('/joystick', methods=['POST'])
 def joystick():
     data = request.get_json()
-    if data['type'] == 'joystick':
-        x = float(data['x'])
-        y = float(data['y'])
-        r = math.sqrt(x**2 + y**2)
-        print(f"Joystick position: x={x}, y={y}, r={r}")
-        return {'result': 'success'}
-    elif data['type'] == 'shoot':
-        print(data['shoot'])
-        return {'result': 'success'}
-    elif data['type'] == 'stage_up':
-        print(data['stage_up'])
-        return {'result': 'success'}
-    elif data['type'] == 'stage_down':
-        print(data['stage_down'])
-        return {'result': 'success'}
-    elif data['type'] == 'cal_pos':
-        print(data['cal_pos'])
-        return {'result': 'success'}
-    elif data['type'] == 'turn_left':
-        print(data['turn_left'])
-        return {'result': 'success'}
-    elif data['type'] == 'turn_right':
-        print(data['turn_right'])
-        return {'result': 'success'}
+    # Rest of your code
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0' ,debug=True)
+    rclpy.init(args=None)
+    flask_ros2_subscriber = FlaskROS2Subscriber()
+
+    try:
+        app.run(host='0.0.0.0', debug=True)
+    finally:
+        flask_ros2_subscriber.destroy_node()
+        rclpy.shutdown()
