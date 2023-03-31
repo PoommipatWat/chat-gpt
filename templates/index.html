@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Joystick</title>
+    <style>
+        body {
+            overflow: hidden;
+        }
+		.joystick {
+			position: absolute;
+			bottom: 50px;
+			left: 50px;
+			width: 200px;
+			height: 200px;
+			background-color: lightgray;
+			border-radius: 50%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+        .thumb {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: darkgray;
+            border-radius: 70%;
+        }
+    </style>
+</head>
+<body>
+    <div class="joystick" id="joystick">
+        <div class="thumb" id="thumb"></div>
+    </div>
+    <p>X position: <span id="xPosition">0.00</span></p>
+    <p>Y position: <span id="yPosition">0.00</span></p>
+
+    <script>
+        const joystick = document.getElementById('joystick');
+        const thumb = document.getElementById('thumb');
+        let isDragging = false;
+
+        function sendPosition(x, y) {
+            fetch('/joystick', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ x, y }),
+            });
+        }
+
+        function handleInteractionStart() {
+            isDragging = true;
+        }
+
+		function handleInteractionEnd() {
+			isDragging = false;
+			thumb.style.transform = 'translate(0, 0)';
+			document.getElementById('xPosition').textContent = '0.00';
+			document.getElementById('yPosition').textContent = '0.00';
+			sendPosition(0, 0);
+		}
+
+        function handleInteractionMove(event) {
+            event.preventDefault();
+            if (!isDragging) return;
+
+            const rect = joystick.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            let x, y, X, Y;
+
+            if (event.type === 'touchmove') {
+                x = event.touches[0].clientX - centerX;
+                y = event.touches[0].clientY - centerY;
+            } else {
+                x = event.clientX - centerX;
+                y = event.clientY - centerY;
+            }
+
+            const radius = joystick.clientWidth / 2 - thumb.clientWidth / 2;
+
+            const distance = Math.sqrt(x * x + y * y);
+            if (distance > radius) {
+                x = (x / distance) * radius;
+                y = (y / distance) * radius;
+            }
+
+			if (Math.abs(x/radius) <= 0.2) X = 0;
+			else X = x/radius;
+			if (Math.abs(y/radius) <= 0.2) Y = 0;
+			else Y = y/radius;
+
+            thumb.style.transform = `translate(${x}px, ${y}px)`;
+            document.getElementById('xPosition').textContent = (X).toFixed(2);
+            document.getElementById('yPosition').textContent = (Y).toFixed(2);
+            sendPosition(X, Y);
+        }
+
+        joystick.addEventListener('mousedown', handleInteractionStart);
+        joystick.addEventListener('touchstart', handleInteractionStart);
+        window.addEventListener('mouseup', handleInteractionEnd);
+        window.addEventListener('touchend', handleInteractionEnd);
+        window.addEventListener('mousemove', handleInteractionMove);
+        window.addEventListener('touchmove', handleInteractionMove);
+    </script>
+</body
