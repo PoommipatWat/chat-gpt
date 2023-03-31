@@ -3,107 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visual Joystick</title>
-    <style>
-        body {
-            overflow: hidden;
-        }
-		.joystick {
-			position: absolute;
-			bottom: 50px;
-			left: 50px;
-			width: 200px;
-			height: 200px;
-			background-color: lightgray;
-			border-radius: 50%;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-
-        .thumb {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background-color: darkgray;
-            border-radius: 70%;
-        }
-    </style>
+    <title>REAI Meshout 1</title>
+    <link rel="stylesheet" href="/static/css.css">
 </head>
 <body>
     <div class="joystick" id="joystick">
         <div class="thumb" id="thumb"></div>
     </div>
-    <p>X position: <span id="xPosition">0.00</span></p>
-    <p>Y position: <span id="yPosition">0.00</span></p>
+    <script src="/static/joystick.js"></script>
 
-    <script>
-        const joystick = document.getElementById('joystick');
-        const thumb = document.getElementById('thumb');
-        let isDragging = false;
+    <div class="shoot" id="shoot">
+        <div class="bullet" id="bullet"></div>
+    </div>
+    <script src="/static/shoot.js"></script>
+    
+    <div class="stage_up" id="stage_up"></div>
+    <script src="/static/stage_up.js"></script>
 
-        function sendPosition(x, y) {
-            fetch('/joystick', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ x, y }),
-            });
-        }
+    <div class="stage_down" id="stage_down"></div>
+    <script src="/static/stage_down.js"></script>
 
-        function handleInteractionStart() {
-            isDragging = true;
-        }
+    <div class="cal_pos" id="cal_pos"></div>
+    <script src="/static/cal_pos.js"></script>
 
-		function handleInteractionEnd() {
-			isDragging = false;
-			thumb.style.transform = 'translate(0, 0)';
-			document.getElementById('xPosition').textContent = '0.00';
-			document.getElementById('yPosition').textContent = '0.00';
-			sendPosition(0, 0);
-		}
+    <div class="turn_left" id="turn_left"></div>
+    <script src="/static/turn_left.js"></script>
 
-        function handleInteractionMove(event) {
-            event.preventDefault();
-            if (!isDragging) return;
+    <div class="turn_right" id="turn_right"></div>
+    <script src="/static/turn_right.js"></script>
 
-            const rect = joystick.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
+    <div class="xJoyCon" id="xJoyCon">
+        <p>Joy position X : <span id="xJoy">0.00</span></p>
+    </div>
 
-            let x, y, X, Y;
+    <div class="yJoyCon" id="yJoyCon">
+        <p>Joy position Y : <span id="yJoy">0.00</span></p>
+    </div>
 
-            if (event.type === 'touchmove') {
-                x = event.touches[0].clientX - centerX;
-                y = event.touches[0].clientY - centerY;
-            } else {
-                x = event.clientX - centerX;
-                y = event.clientY - centerY;
-            }
+    <div class="dJoyCon" id="dJoyCon">
+        <p>Joy position D : <span id="dJoy">0.00</span></p>
+    </div>
 
-            const radius = joystick.clientWidth / 2 - thumb.clientWidth / 2;
+    <div class="xRoboCon" id="xRoboCon">
+        <p>Joy position X : <span id="xRobo">0.00</span></p>
+    </div>
 
-            const distance = Math.sqrt(x * x + y * y);
-            if (distance > radius) {
-                x = (x / distance) * radius;
-                y = (y / distance) * radius;
-            }
+    <div class="yRoboCon" id="yRoboCon">
+        <p>Joy position Y : <span id="yRobo">0.00</span></p>
+    </div>
 
-			if (Math.abs(x/radius) <= 0.2) X = 0;
-			else X = x/radius;
-			if (Math.abs(y/radius) <= 0.2) Y = 0;
-			else Y = y/radius;
+    <div class="dRoboCon" id="dRoboCon">
+        <p>Joy position D : <span id="dRobo">0.00</span></p>
+    </div>
 
-            thumb.style.transform = `translate(${x}px, ${y}px)`;
-            document.getElementById('xPosition').textContent = (X).toFixed(2);
-            document.getElementById('yPosition').textContent = (Y).toFixed(2);
-            sendPosition(X, Y);
-        }
+    <div class="statusStageCon" id="statusStageCon">
+        <p>Stage : <span id="statusStage">0</span></p>
+    </div>
 
-        joystick.addEventListener('mousedown', handleInteractionStart);
-        joystick.addEventListener('touchstart', handleInteractionStart);
-        window.addEventListener('mouseup', handleInteractionEnd);
-        window.addEventListener('touchend', handleInteractionEnd);
-        window.addEventListener('mousemove', handleInteractionMove);
-        window.addEventListener('touchmove', handleInteractionMove);
-    </script>
-</body
+    <div class="statusShootCon" id="statusShootCon">
+        <p>StatusShoot : <span id="statusShoot"></span></p>
+    </div>
+
+    <div class="speedShootCon" id="speedShootCon">
+        <p>SpeedShoot : <span id="speedShoot"></span></p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,225 @@
+body {
+    overflow: hidden;
+}
+.joystick {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    width: 200px;
+    height: 200px;
+    background-color: lightgray;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.thumb {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: darkgray;
+    border-radius: 70%;
+}
+
+.shoot {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    width: 200px;
+    height: 200px;
+    background-color: lightgray;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bullet {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: darkgray;
+    border-radius: 70%;
+}
+
+.stage_up {
+    position: absolute;
+    bottom: 25px;
+    left: 67.5%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 50px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stage_down {
+    position: absolute;
+    bottom: 25px;
+    left: 32.5%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 50px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cal_pos {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 50px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.turn_left {
+    position: absolute;
+    bottom: 250px;
+    left: 25px;
+    width: 200px;
+    height: 50px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.turn_right {
+    position: absolute;
+    bottom: 250px;
+    right: 25px;
+    width: 200px;
+    height: 50px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.xJoyCon {
+    position: absolute;
+    bottom: 180px;
+    left: 32.5%;
+    transform: translateX(-50%);
+    width: 175px;
+    height: 35px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.yJoyCon {
+    position: absolute;
+    bottom: 140px;
+    left: 32.5%;
+    transform: translateX(-50%);
+    width: 175px;
+    height: 35px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dJoyCon {
+    position: absolute;
+    bottom: 100px;
+    left: 32.5%;
+    transform: translateX(-50%);
+    width: 175px;
+    height: 35px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.xRoboCon {
+    position: absolute;
+    bottom: 180px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 175px;
+    height: 35px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.yRoboCon {
+    position: absolute;
+    bottom: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 175px;
+    height: 35px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dRoboCon {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 175px;
+    height: 35px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.statusStageCon {
+    position: absolute;
+    bottom: 100px;
+    left: 67.5%;
+    transform: translateX(-50%);
+    width: 175px;
+    height: 35px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.statusShootCon {
+    position: absolute;
+    bottom: 140px;
+    left: 67.5%;
+    transform: translateX(-50%);
+    width: 175px;
+    height: 35px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.speedShootCon {
+    position: absolute;
+    bottom: 180px;
+    left: 67.5%;
+    transform: translateX(-50%);
+    width: 175px;
+    height: 35px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
